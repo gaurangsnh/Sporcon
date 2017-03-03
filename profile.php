@@ -63,14 +63,17 @@
                         <a href="#page-top"></a>
                     </li>
                     <li class="page-scroll">
-                        <a data-toggle="modal" href="javascript:void(0)" onclick="openLoginModal();">Login</a>
-                    </li>
-                    <li class="page-scroll">
                         <a href="#">Write an article</a>
                     </li>
-                    <li class="page-scroll">
-                        <a href="#">Search</a>
-                    </li>
+                    <li class="dropdown">
+                    	<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Welcome <?php echo $name; ?><span class="caret"></span></a>
+                    	<ul class="dropdown-menu">
+		                  	<li><a href="#">Edit Profile</a></li>
+		                  	<li><a href="logout.php">Logout</a></li>
+            			</ul>
+              		</li>
+                        <!--<a href="logout.php">Welcome <?php echo $name; ?></a>
+                    </li>-->
                 </ul>
             </div>
             <!-- /.navbar-collapse -->
@@ -164,8 +167,7 @@
 			            	<div class="left">
 				            	<h3><?php echo"$title" ?></h3>
 			                	<p><?php echo"$content" ?></p>
-			                	<h6><time class="timeago" datetime="<?php echo"$timestamp" ?>"><?php echo"$timestamp" ?></time></h6>
-		                    	
+			                    <h6><time class="timeago" datetime="<?php echo"$timestamp" ?>"><?php echo"$timestamp" ?></time></h6>
 		                    </div>
 		                    <div class="right" style="background-image: url('<?php if (empty($pic)){?>img/defaultThumbnail-article.png<?php }else{?>uploads/<?php echo $pic;} ?>');">
 		                    	
@@ -280,7 +282,7 @@
                 <div class="modal-footer">
                     <div class="forgot login-footer">
                         <span class="foot">Don't have an account?
-                             <a href="SignUp.php" style="color:#233140;"> Sign Up</a>
+                             <a href="studentSignUp.php" style="color:#233140;"> Sign Up</a>
                         </span>
                     </div>
                 </div>   

@@ -141,7 +141,7 @@ function showLoginForm(){
             $('.login-footer').fadeIn('fast');    
         });
         
-        $('.modal-title').html('Please enter Credentials');
+        $('.modal-title').html('Login');
     });       
      $('.error').removeClass('alert alert-danger').html(''); 
 }
@@ -165,7 +165,7 @@ function loginAjax(){
 	var username = $('#username').val();
 	
 	var password = $('#password').val();
-	if(email != '' && password != '') {
+	if(username != '' && password != '') {
 		var urltopass = 'action=login&username='+username+'&password='+password;
 		$.ajax({
 			type:'POST',
@@ -181,17 +181,17 @@ function loginAjax(){
 				}
 			}
 		});
-	} else if (email == '' && password == '') {
+	} else if (username == '' && password == '') {
 		shakeModalEmpty();
-	} else if (email == '' && password != '') {
-		shakeModalEmailEmpty();
-	} else if (email != '' && password == '') {
+	} else if (username == '' && password != '') {
+		shakeModalUsernameEmpty();
+	} else if (username != '' && password == '') {
 		shakeModalPasswordEmpty();
 	} return false;
 }
 function shakeModal(){
     $('#loginModal .modal-dialog').addClass('shake');
-             $('.error').addClass('alert alert-danger').html("Incorrect Email or Password.");
+             $('.error').addClass('alert alert-danger').html("Incorrect Username or Password.");
              $('input[type="password"]').val('');
              setTimeout( function(){ 
                 $('#loginModal .modal-dialog').removeClass('shake'); 
@@ -200,16 +200,16 @@ function shakeModal(){
 
 function shakeModalEmpty(){
     $('#loginModal .modal-dialog').addClass('shake');
-             $('.error').addClass('alert alert-danger').html("Please enter Email and Password.");
+             $('.error').addClass('alert alert-danger').html("Please enter Username and Password.");
              $('input[type="password"]').val('');
              setTimeout( function(){ 
                 $('#loginModal .modal-dialog').removeClass('shake'); 
     }, 1000 ); 
 }
  
-function shakeModalEmailEmpty(){
+function shakeModalUsernameEmpty(){
     $('#loginModal .modal-dialog').addClass('shake');
-             $('.error').addClass('alert alert-danger').html("Please enter Email.");
+             $('.error').addClass('alert alert-danger').html("Please enter Username.");
              $('input[type="password"]').val('');
              setTimeout( function(){ 
                 $('#loginModal .modal-dialog').removeClass('shake'); 

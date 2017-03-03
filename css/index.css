@@ -80,6 +80,7 @@ header .container {
   letter-spacing: 1px;
 }
 .navbar-custom .navbar-nav li a {
+  background-color: #2C3E50;
   color: white;
 }
 .navbar-custom .navbar-nav li a:hover {
@@ -112,6 +113,7 @@ header .container {
   color: white;
   border-color: #18BC9C;
 }
+
 @media (min-width: 768px) {
   .navbar-custom {
     padding: 25px 0;
@@ -464,22 +466,25 @@ fieldset[disabled] .btn-primary.active {
     font-size: 16px;
 }
 .login .modal-footer{
+	text-align: center;
 	font-family: 'Lato', sans-serif;
     border-top: 0;
     margin-top: 0px;
     padding: 10px 20px 20px;
-    background-color: #424242;
+    background-color: #15a98c;
 }
 .login .modal-header {
+	text-align: center;
 	font-family: 'Acme', sans-serif;
 	font-size: 20px;
     border: 0 none;
     padding: 15px 15px 15px;    
-	background-color: #424242;
+	background-color: #15a98c;
 }
 .login .modal-body  {
+	text-align: center;
 	font-family: 'Lato', sans-serif;
-    background-color: #424242; 
+    background-color: #15a98c; 
 }
 .login .forgot {
     color: #797979;
@@ -489,7 +494,8 @@ fieldset[disabled] .btn-primary.active {
     width: 100%;
 }
 .login .pwd {
-	color:#3299BB;
+	color:#233140;
+	font-weight:500;
 }
 .login .btn-login {
 	letter-spacing: 1px;
@@ -497,7 +503,7 @@ fieldset[disabled] .btn-primary.active {
 	background: none;
     -moz-user-select: none;
     background-image: none;
-    border: 1px solid transparent;
+    border: 0;
     border-radius: 0;
     cursor: pointer;
     display: inline-block;
@@ -508,21 +514,17 @@ fieldset[disabled] .btn-primary.active {
 	line-height:20px;
 	font-weight:700;
 	text-transform:uppercase;
-	border: 3px solid;
 	padding:8px 20px;
-	background: none;
-    color: #E9E9E9;
-	border-color: #E9E9E9;
-	text-transform: uppercase;
+    color: #fff;
+	background-color: #233140;
     height: 50px;
     width: 50%;
     text-align:center
 }
 .login .btn-login:hover,
 .login .btn-login:focus {
-    background-color: #18BC9C;
-    color: #E9E9E9;
-    border-color: #424242;
+    background-color: #1c2733;
+    color: #fff;
 }
 .login .btn-password {
 	letter-spacing: 1px;
@@ -530,7 +532,7 @@ fieldset[disabled] .btn-primary.active {
 	background: none;
     -moz-user-select: none;
     background-image: none;
-    border: 1px solid transparent;
+    border: 0;
     border-radius: 0;
     cursor: pointer;
     display: inline-block;
@@ -541,34 +543,30 @@ fieldset[disabled] .btn-primary.active {
 	line-height:20px;
 	font-weight:700;
 	text-transform:uppercase;
-	border: 3px solid;
 	padding:8px 20px;
-	background: none;
-    color: #E9E9E9;
-	border-color: #E9E9E9;
-	text-transform: uppercase;
+    color: #fff;
+	background-color: #233140;
     height: 50px;
     width: 50%;
     text-align:center
 }
 .login .btn-password:hover,
 .login .btn-password:focus {
-    background-color: #18BC9C;
-    color: #E9E9E9;
-    border-color: #424242;
+    background-color: #1c2733;
+    color: #fff;
 }
 
 
 .login .foot {
 	font-family: 'Lato', sans-serif;
-	color:#E9E9E9;
+	color:#fff;
 }
 .login .form-control{
 	ffont-family: 'Lato', sans-serif;
-    border-radius: 3px;
+    border-radius: 0;
     background-color: rgba(0, 0, 0, 0.09);
     box-shadow: 0 1px 0px 0px rgba(0, 0, 0, 0.09) inset;
-    color: #E9E9E9;
+    color: #fff;
 }
 .login .form-control:hover{
 	font-family: 'Lato', sans-serif;
@@ -578,15 +576,14 @@ fieldset[disabled] .btn-primary.active {
 	ffont-family: 'Lato', sans-serif;
     box-shadow: 0 1px 0 0 rgba(0, 0, 0, 0.04) inset;
     background-color: rgba(0,0,0,0.23);
-    color: #E9E9E9;
+    color: #fff;
 }
 .login .box .form input[type="text"], 
 .login .box .form input[type="email"], 
 .login .box .form input[type="password"] {
 	font-family: 'Lato', sans-serif;
-    border-radius: 3px;
     border: none;
-    color: #dbd8d8;
+    color: #fff;
     font-size: 16px;
     height: 46px;
     margin-bottom: 5px;
@@ -603,4 +600,17 @@ fieldset[disabled] .btn-primary.active {
     }
 }
 
-
+::-webkit-input-placeholder { /* WebKit, Blink, Edge */
+    color:    #ccc !important;
+}
+:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+   color:    #ccc !important;
+   opacity:  1  !important;
+}
+::-moz-placeholder { /* Mozilla Firefox 19+ */
+   color:    #ccc !important;
+   opacity:  1  !important;
+}
+:-ms-input-placeholder { /* Internet Explorer 10-11 */
+   color:    #ccc !important;
+}
