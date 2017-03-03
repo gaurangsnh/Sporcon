@@ -1,18 +1,18 @@
-<?php 
+<?php
 	#Start session
-	session_start();	
+	session_start();
 	#Database Connection
 	include('config/connection.php');
-	
-	$sql = "SELECT * FROM articles where userID = '".$_SESSION['id']."' ORDER BY timestamp DESC";
+
+	$sql = "SELECT * FROM articles ORDER BY timestamp DESC";
 	$result = $db->query($sql);
-	
-	$sql2 = "SELECT * FROM users where id = '".$_SESSION['id']."'";
+
+	$sql2 = "SELECT * FROM users";
 	$result2 = $db->query($sql2);
 	if($result2->num_rows){
 	   	$row2 = $result2->fetch_object();
-		$name = $row2->name;	
-	}	
+		$name = $row2->name;
+	}
 ?>
 
 <!DOCTYPE html>
@@ -96,7 +96,7 @@
         </div>
     </header>
 
- 
+
      <!-- Content Section -->
     <section class="success" id="content">
         <div class="container">
@@ -114,11 +114,11 @@
             	</p>
             </div>
             <div class="article-block">
-	        	<div class="content" id="newestDiv" style="display: inherit;">    
+	        	<div class="content" id="newestDiv" style="display: inherit;">
 		            <?php
 					if($result->num_rows){
 					   	while ($row = $result->fetch_object()) {
-					        $id = $row->id;	
+					        $id = $row->id;
 					        $title = $row->title;
 					        $keyword = $row->keyword;
 					        $category = $row->category;
@@ -135,22 +135,22 @@
 			                    <h6><time class="timeago" datetime="<?php echo"$timestamp" ?>"><?php echo"$timestamp" ?></time></h6>
 		                    </div>
 		                    <div class="right" style="background-image: url('<?php if (empty($pic)){?>img/defaultThumbnail-article.png<?php }else{?>uploads/<?php echo $pic;} ?>');">
-		                    	
+
 		                    </div>
-			            </div> 
-			            
+			            </div>
+
 			            <?php
 						}
-					}	            
+					}
 		            ?>
 	            </div>
-	            <div class="content" id="trendingDiv">    
+	            <div class="content" id="trendingDiv">
 		            <?php
 		            $sql = "SELECT * FROM articles ORDER BY timestamp ASC";
 					$result = $db->query($sql);
 					if($result->num_rows){
 					   	while ($row = $result->fetch_object()) {
-					        $id = $row->id;	
+					        $id = $row->id;
 					        $title = $row->title;
 					        $keyword = $row->keyword;
 					        $category = $row->category;
@@ -165,24 +165,24 @@
 				            	<h3><?php echo"$title" ?></h3>
 			                	<p><?php echo"$content" ?></p>
 			                	<h6><time class="timeago" datetime="<?php echo"$timestamp" ?>"><?php echo"$timestamp" ?></time></h6>
-		                    	
+
 		                    </div>
 		                    <div class="right" style="background-image: url('<?php if (empty($pic)){?>img/defaultThumbnail-article.png<?php }else{?>uploads/<?php echo $pic;} ?>');">
-		                    	
+
 		                    </div>
-			            </div> 
-			            
+			            </div>
+
 			            <?php
 						}
-					}	            
+					}
 		            ?>
-	            </div>           
+	            </div>
             </div>
         </div>
     </section>
- 
- 
- 
+
+
+
 
     <!-- Footer -->
     <footer class="text-center">
@@ -240,10 +240,10 @@
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                     <h4 class="modal-title">Login</h4>
                 </div>
-                <div class="modal-body">  
+                <div class="modal-body">
                     <div class="box">
                          <div class="content">
-                            
+
                             <div class="error" style="color:#233140;background:#15a98c;border:0px none #15a98c;box-shadow:none;text-shadow:none"></div>
                             <div class="form loginBox" method="post" id="loginForm">
                                 <form method="post" accept-charset="UTF-8">
@@ -253,6 +253,80 @@
                                 <p></p>
                                 <input class="btn btn-default btn-login wow bounceIn animated" data-wow-duration="0.8s" data-wow-delay="0.5s" type="button" value="Login" name="submit" id="submit" onclick="loginAjax()">
                                 </form>
+																<!--fb integrtor-->
+
+																<script>
+        function statusChangeCallback(response) {
+            console.log('statusChangeCallback');
+            console.log(response);
+            if (response.status === 'connected') {
+                testAPI();
+            } else if (response.status === 'not_authorized') {
+                document.getElementById('status').innerHTML = 'Please log '
+                        + 'into this app.';
+            } else {
+                document.getElementById('status').innerHTML = 'Please log '
+                        + 'into Facebook.';
+            }
+        }
+        function checkLoginState() {
+            FB.getLoginStatus(function(response) {
+                statusChangeCallback(response);
+            });
+        }
+
+        window.fbAsyncInit = function() {
+            FB.init({
+                appId : '1690736994557336',
+                cookie : true, // enable cookies to allow the server to access
+                // the session
+                xfbml : true, // parse social plugins on this page
+                version : 'v2.2' // use version 2.2
+            });
+            FB.getLoginStatus(function(response) {
+                statusChangeCallback(response);
+            });
+
+        };
+
+        // Load the SDK asynchronously
+        (function(d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id))
+                return;
+            js = d.createElement(s);
+            js.id = id;
+            js.src = "//connect.facebook.net/en_US/sdk.js";
+            fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));
+        function testAPI() {
+            console.log('Welcome!  Fetching your information.... ');
+            FB
+                    .api(
+                            '/me',
+                            function(response) {
+                                console.log(response);
+                                document.getElementById('userDetails').innerHTML = 'Thanks for logging in, '
+                                        + response.name
+
+
+																				//window.location = "profile.php";
+
+
+                            });
+        }
+    </script>
+    <fb:login-button scope="public_profile,email"
+        onlogin="checkLoginState();">
+    </fb:login-button>
+
+    <div id="status"></div>
+    <div id="userDetails"></div>
+																<!-- end-->
+
+
+
+
                             </div>
                          </div>
                     </div>
@@ -267,28 +341,28 @@
                             </div>
                         </div>
                     </div>
-                    
+
                 </div>
-                
+
                 <div class="modal-footer">
                     <div class="forgot password-footer" style="display:none;">
                         <span class="foot">Back to <a href="javascript: showLoginForm();" style="color:#233140;">Login</a>
                         </span>
                     </div>
                 </div>
-                
+
                 <div class="modal-footer">
                     <div class="forgot login-footer">
                         <span class="foot">Don't have an account?
                              <a href="SignUp.php" style="color:#233140;"> Sign Up</a>
                         </span>
                     </div>
-                </div>   
+                </div>
 		      </div>
 	      </div>
 	  </div>
 	  <!-- End of Login Modal -->
-    
+
 
     <!-- jQuery -->
     <script src="vendor/jquery/jquery.min.js"></script>
