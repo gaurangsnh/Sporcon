@@ -1,3 +1,10 @@
+<?php 
+	#Start session
+	session_start();	
+	#Database Connection
+	include('config/connection.php');
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -46,7 +53,7 @@
                         <a href="#page-top"></a>
                     </li>
                     <li class="page-scroll">
-                        <a href="#">Login</a>
+                        <a data-toggle="modal" href="javascript:void(0)" onclick="openLoginModal();">Login</a>
                     </li>
                     <li class="page-scroll">
                         <a href="#">Write an article</a>
@@ -65,65 +72,15 @@
     <header>
         <div class="container">
             <div class="row">
-                <div class="col-lg-2">
-                    <a href="#">
-					  <div class="button-fill grey">
-					    <div class="button-text">Home</div>
-					    <div class="button-inside">
-					      <div class="inside-text">Home</div>
-					    </div>
-					  </div>
-					 </a>
-				</div>
-				<div class="col-lg-2">				
-					 <a href="#">
-					  <div class="button-fill grey">
-					    <div class="button-text">Cricket</div>
-					    <div class="button-inside">
-					      <div class="inside-text">Cricket</div>
-					    </div>
-					  </div>
-					 </a>
-				</div>
-				<div class="col-lg-2">
-					 <a href="#">
-					  <div class="button-fill grey">
-					    <div class="button-text">Football</div>
-					    <div class="button-inside">
-					      <div class="inside-text">Football</div>
-					    </div>
-					  </div>
-					 </a>
-				</div>
-				<div class="col-lg-2">
-					 <a href="#">
-					  <div class="button-fill grey">
-					    <div class="button-text">Hockey</div>
-					    <div class="button-inside">
-					      <div class="inside-text">Hockey</div>
-					    </div>
-					  </div>
-					 </a>
-				</div>
-				<div class="col-lg-2">
-					 <a href="#">
-					  <div class="button-fill grey">
-					    <div class="button-text">Tennis</div>
-					    <div class="button-inside">
-					      <div class="inside-text">Tennis</div>
-					    </div>
-					  </div>
-					 </a>
-                </div>
-                <div class="col-lg-2">
-					 <a href="#">
-					  <div class="button-fill grey">
-					    <div class="button-text">Badminton</div>
-					    <div class="button-inside">
-					      <div class="inside-text">Badminton</div>
-					    </div>
-					  </div>
-					 </a>
+                <div class="col-lg-12">
+                	<div class="btn-group" role="group" aria-label="...">
+	                    <button type="button" class="btn btn-default active">Home</button>
+						<button type="button" class="btn btn-default">Cricket</button>
+					 	<button type="button" class="btn btn-default">Football</button>
+						<button type="button" class="btn btn-default">Hockey</button>
+						<button type="button" class="btn btn-default">Tennis</button>
+	                	<button type="button" class="btn btn-default">Badminton</button>
+                	</div>
                 </div>
             </div>
         </div>
@@ -131,9 +88,87 @@
 
  
      <!-- Content Section -->
-    <section class="success" id="about">
+    <section class="success" id="content">
         <div class="container">
-            
+            <div class="top-filter">
+            	<p>
+            		<button class="but" type="button" id="newest"> Newest </button>
+            	</p>
+            	<p class="bar"> | </p>
+            	<p>
+            		<button class="but" type="button" id="trending"> Trending </button>
+            	</p>
+            	<p class="bar"> | </p>
+            	<p>
+            		<button class="but" type="button" id="followed"> Followed </button>
+            	</p>
+            </div>
+            <div class="article-block">
+	        	<div class="content" id="newestDiv" style="display: inherit;">    
+		            <?php
+		            $sql = "SELECT * FROM articles ORDER BY timestamp DESC";
+					$result = $db->query($sql);
+					if($result->num_rows){
+					   	while ($row = $result->fetch_object()) {
+					        $id = $row->id;	
+					        $title = $row->title;
+					        $keyword = $row->keyword;
+					        $category = $row->category;
+					        $content = $row->content;
+					        $pic = $row->pic;
+					        $timestamp = $row->timestamp;
+			            ?>
+			            <br />
+			            <br />
+			            <div class="article-content">
+			            	<div class="left">
+				            	<h3><?php echo"$title" ?></h3>
+			                	<p><?php echo"$content" ?></p>
+			                    <h6><time class="timeago" datetime="<?php echo"$timestamp" ?>"><?php echo"$timestamp" ?></time></h6>
+		                    </div>
+		                    <div class="right" style="background-image: url('<?php if (empty($pic)){?>img/defaultThumbnail-article.png<?php }else{?>uploads/<?php echo $pic;} ?>');">
+		                    	
+		                    </div>
+			            </div> 
+			            
+			            <?php
+						}
+					}	            
+		            ?>
+	            </div>
+	            <div class="content" id="trendingDiv">    
+		            <?php
+		            $sql = "SELECT * FROM articles ORDER BY timestamp ASC";
+					$result = $db->query($sql);
+					if($result->num_rows){
+					   	while ($row = $result->fetch_object()) {
+					        $id = $row->id;	
+					        $title = $row->title;
+					        $keyword = $row->keyword;
+					        $category = $row->category;
+					        $content = $row->content;
+					        $pic = $row->pic;
+					        $timestamp = $row->timestamp;
+			            ?>
+			            <br />
+			            <br />
+			            <div class="article-content">
+			            	<div class="left">
+				            	<h3><?php echo"$title" ?></h3>
+			                	<p><?php echo"$content" ?></p>
+			                    <h6><time class="timeago" datetime="<?php echo"$timestamp" ?>"><?php echo"$timestamp" ?></time></h6>
+		                    </div>
+		                    <div class="right" style="background-image: url('<?php if (empty($pic)){?>img/defaultThumbnail-article.png<?php }else{?>uploads/<?php echo $pic;} ?>');">
+		                    	
+		                    </div>
+			            </div> 
+			            
+			            <?php
+						}
+					}	            
+		            ?>
+	            </div>           
+            </div>
         </div>
     </section>
  
@@ -188,6 +223,62 @@
         </a>
     </div>
 
+    <!-- Login Modal -->
+    <div class="modal fade login" id="loginModal">
+	      <div class="modal-dialog login animated">
+		      <div class="modal-content">
+		         <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title">Please enter Credentials</h4>
+                </div>
+                <div class="modal-body">  
+                    <div class="box">
+                         <div class="content">
+                            
+                            <div class="error" style="color:#18BC9C;background:#424242;border:0px none #424242;box-shadow:none;text-shadow:none"></div>
+                            <div class="form loginBox" method="post" id="loginForm">
+                                <form method="post" accept-charset="UTF-8">
+                                <input class="form-control" type="text" placeholder="Username" name="username" id="username">
+                                <input class="form-control" type="password" placeholder="Password" name="password" id="password">
+                                <a href="javascript: showPasswordForm();" class="pwd">Forgot Password</a>
+                                <p></p>
+                                <input class="btn btn-default btn-login wow bounceIn animated" data-wow-duration="0.8s" data-wow-delay="0.5s" type="button" value="Login" name="submit" id="submit" onclick="loginAjax()">
+                                </form>
+                            </div>
+                         </div>
+                    </div>
+                <div class="box">
+                        <div class="content passwordBox" style="display:none;">
+                         <div class="form">
+                            <form method="post" html="{:multipart=>true}" data-remote="true" action="studentForgotPassword.php" accept-charset="UTF-8">
+                            <input id="emailpwd" class="form-control" type="text" placeholder="Email" name="email">
+                            <p></p>
+                            <input class="btn btn-default btn-password wow bounceIn animated" data-wow-duration="0.8s" data-wow-delay="0.5s" type="submit" value="Mail password" name="commit">
+                            </form>
+                            </div>
+                        </div>
+                    </div>
+                    
+                </div>
+                
+                <div class="modal-footer">
+                    <div class="forgot password-footer" style="display:none;">
+                        <span class="foot">Back to <a href="javascript: showLoginForm();" style="color:#18BC9C;">Login</a>
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="modal-footer">
+                    <div class="forgot login-footer">
+                        <span class="foot">Don't have an account?
+                             <a href="studentSignUp.php" style="color:#18BC9C;"> Sign Up</a>
+                        </span>
+                    </div>
+                </div>   
+		      </div>
+	      </div>
+	  </div>
+	  <!-- End of Login Modal -->
     
 
     <!-- jQuery -->
